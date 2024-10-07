@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 15:22:40 by nihamdan          #+#    #+#             */
-/*   Updated: 2024/09/07 21:52:54 by nihamdan         ###   ########.fr       */
+/*   Created: 2024/10/07 15:33:41 by nihamdan          #+#    #+#             */
+/*   Updated: 2024/10/07 17:25:04 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-# define ZOMBIE_HPP
+#ifndef CAT_HPP
+# define CAT_HPP
 
-# include <string>
-# include <iostream>
+# include "Animal.hpp"
 
-class Zombie
+class Cat : public Animal
 {
 	public:
+		Cat();
+		Cat(const Cat& other);
+		Cat& operator=(const Cat& other);
+		~Cat();
+
+		std::string	getType() const;
+		virtual void makeSound() const;
 	
-		Zombie(std::string);
-		~Zombie();
-		void announce(void);
-
-	private:
-
-		std::string _name;	
 };
-
-Zombie* newZombie(std::string name);
-
-void randomChump(std::string name);
-
 
 #endif

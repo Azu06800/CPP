@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 15:22:40 by nihamdan          #+#    #+#             */
-/*   Updated: 2024/09/07 21:52:54 by nihamdan         ###   ########.fr       */
+/*   Created: 2024/09/11 17:57:17 by nihamdan          #+#    #+#             */
+/*   Updated: 2024/09/11 18:12:17 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-# define ZOMBIE_HPP
+#include "Harl.hpp"
 
-# include <string>
-# include <iostream>
-
-class Zombie
+int main()
 {
-	public:
-	
-		Zombie(std::string);
-		~Zombie();
-		void announce(void);
+	Harl Harl;
+    std::string level;
 
-	private:
-
-		std::string _name;	
-};
-
-Zombie* newZombie(std::string name);
-
-void randomChump(std::string name);
-
-
-#endif
+    while (1) 
+	{
+        std::cout << "Choose a level of complain: ";
+	    std::getline(std::cin, level);
+        if (std::cin.fail())
+            exit(1);
+        Harl.complain(level);
+    }
+}

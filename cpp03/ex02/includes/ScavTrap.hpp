@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.hpp                                         :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/03 15:22:40 by nihamdan          #+#    #+#             */
-/*   Updated: 2024/09/07 21:52:54 by nihamdan         ###   ########.fr       */
+/*   Created: 2024/10/07 13:43:34 by nihamdan          #+#    #+#             */
+/*   Updated: 2024/10/07 13:57:34 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ZOMBIE_HPP
-# define ZOMBIE_HPP
+#ifndef SCAVTRAP_HPP
+# define SCAVTRAP_HPP
 
-# include <string>
-# include <iostream>
+# include "ClapTrap.hpp"
 
-class Zombie
+class ScavTrap : public ClapTrap
 {
 	public:
+		ScavTrap();
+		ScavTrap(std::string name);
+		ScavTrap(const ScavTrap& other);
+		ScavTrap& operator=(const ScavTrap& other);
+		~ScavTrap();
 	
-		Zombie(std::string);
-		~Zombie();
-		void announce(void);
-
-	private:
-
-		std::string _name;	
+		void attack(const std::string &target);
+        void guardGate();
 };
-
-Zombie* newZombie(std::string name);
-
-void randomChump(std::string name);
-
 
 #endif
