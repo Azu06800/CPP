@@ -5,41 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 14:34:04 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/11/13 15:28:40 by nihamdan         ###   ########.fr       */
+/*   Created: 2025/11/09 18:21:10 by nihamdan          #+#    #+#             */
+/*   Updated: 2025/11/09 18:24:21 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "BitcoinExchange.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
+	if (argc != 2)
+	{
+		std::cerr << "Error: could not open file." << std::endl;
+		return 1;
+	}
+
 	try
 	{
-		Bureaucrat b("Alice", 30);
-		std::cout << b << std::endl;
-
-		Form f("Form A42", 50, 100);
-		std::cout << f << std::endl;
-
-		b.signForm(f);
-		std::cout << f << std::endl;
-
-		 Form f2("Form A52", 50, 100);
-		std::cout << f2 << std::endl;
-
-		Bureaucrat c("Bob", 60);
-		std::cout << c << std::endl;
-
-		c.signForm(f2);
-		std::cout << f2 << std::endl;
+		BitcoinExchange btc;
+		btc.loadDatabase("data.csv");
+		btc.processInput(argv[1]);
 	}
-	catch (std::exception& e)
+	catch (std::exception &e)
 	{
-		std::cout << "Exception caught: " << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
+		return 1;
 	}
 
 	return 0;
 }
-

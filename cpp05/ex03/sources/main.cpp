@@ -6,55 +6,63 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:34:04 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/10/10 01:48:55 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:04:56 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Intern.hpp"
 #include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
-#include <iostream>
 
-int main() {
-    try {
-        Intern someRandomIntern;
+int main()
+{
+	std::srand(std::time(NULL));
 
-        AForm* shrub = someRandomIntern.makeForm("shrubbery creation", "Home");
-        AForm* robo  = someRandomIntern.makeForm("robotomy request", "Bender");
-        AForm* pardon= someRandomIntern.makeForm("presidential pardon", "Arthur");
-        AForm* fail  = someRandomIntern.makeForm("coffee form", "Nobody"); // invalide
+	try
+	{
+		Intern someRandomIntern;
+		Bureaucrat boss("Alice", 1);
 
-        std::cout << std::endl;
+		AForm* rrf;
 
-        Bureaucrat alice("Alice", 50);
-        Bureaucrat bob("Bob", 20);
-        Bureaucrat carol("Carol", 1);
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		if (rrf)
+		{
+			boss.signForm(*rrf);
+			boss.executeForm(*rrf);
+			delete rrf;
+		}
 
-        if (shrub) {
-            alice.signForm(*shrub);
-            alice.executeForm(*shrub);
-        }
+		std::cout << std::endl;
 
-        if (robo) {
-            alice.signForm(*robo);
-            bob.executeForm(*robo);   // OK: Bob grade 20 <= 45
-        }
+		AForm* shrub = someRandomIntern.makeForm("shrubbery creation", "home");
+		if (shrub)
+		{
+			boss.signForm(*shrub);
+			boss.executeForm(*shrub);
+			delete shrub;
+		}
 
-        if (pardon) {
-            alice.signForm(*pardon);  // KO (Alice 50 > 25 req)
-            carol.signForm(*pardon);  // OK (Carol 1 <= 25)
-            carol.executeForm(*pardon); // OK (Carol 1 <= 5)
-        }
+		std::cout << std::endl;
 
-        delete shrub;
-        delete robo;
-        delete pardon;
-        delete fail;
+		AForm* pardon = someRandomIntern.makeForm("presidential pardon", "Marvin");
+		if (pardon)
+		{
+			boss.signForm(*pardon);
+			boss.executeForm(*pardon);
+			delete pardon;
+		}
 
-    } catch (std::exception& e) {
-        std::cerr << "Exception caught (top-level): " << e.what() << std::endl;
-    }
-    return 0;
+		std::cout << std::endl;
+
+		// Test erreur
+		AForm* unknown = someRandomIntern.makeForm("unknown form", "Nobody");
+		if (unknown)
+			delete unknown;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << "Exception caught: " << e.what() << std::endl;
+	}
+
+	return 0;
 }

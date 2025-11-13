@@ -15,39 +15,39 @@
 
 # include <iostream>
 # include <stdexcept>
+# include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
 class Form
 {
 	private:
-		std::string 		_name;
-		bool 				_issigned;
-		int					_signrank;
-		int					_executerank;
-		
-	public:
+		std::string const	_name;
+		bool				_issigned;
+		int	const			_signrank;
+		int	const			_executerank;
 
+	public:
 		Form();
 		Form(std::string const name, int signrank, int executerank);
-        Form(const Form& other);
+		Form(const Form& other);
 		Form& operator=(const Form& other);
 		~Form();
 
-		std::string getName() const;
-		bool 		getissigned() const;
+		std::string	getName() const;
+		bool		getissigned() const;
 		int			getsignrank() const;
 		int			getexecuterank() const;
 
 		void		beSigned(Bureaucrat const &bureaucrat);
 
-		class GradeTooHighException : public std::exception 
+		class GradeTooHighException : public std::exception
 		{
 			public:
 				virtual const char* what() const throw();
 		};
-		
-		class GradeTooLowException : public std::exception 
+
+		class GradeTooLowException : public std::exception
 		{
 			public:
 				virtual const char* what() const throw();

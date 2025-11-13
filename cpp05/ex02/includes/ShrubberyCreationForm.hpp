@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:05:35 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/10/09 22:53:44 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:43:02 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@
 
 class ShrubberyCreationForm : public AForm
 {
-private:
-    std::string _target;
+	private:
+		std::string _target;
 
-public:
-    ShrubberyCreationForm();
-    ShrubberyCreationForm(std::string target);
-    ShrubberyCreationForm(const ShrubberyCreationForm& other);
-    ShrubberyCreationForm & operator=(const ShrubberyCreationForm& other);
-    ~ShrubberyCreationForm();
+	public:
+		ShrubberyCreationForm(std::string const target);
+		ShrubberyCreationForm(const ShrubberyCreationForm& other);
+		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
+		~ShrubberyCreationForm();
 
-    void execute(Bureaucrat const& executor) const;
+		void execute(Bureaucrat const & executor) const;
 };
 
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                           :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,77 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
 #include "AForm.hpp"
-#include <iostream>
+#include "Bureaucrat.hpp"
 
-AForm::AForm() : _name("Default"), _issigned(false), _signrank(150), _executerank(150)
-{
-	std::cout << "Constructor AForm: Default" << std::endl;
-}
+AForm::AForm() : _name("Default"), _issigned(false), _signrank(150), _executerank(150) {}
 
-AForm::AForm(std::string const name, int signrank, int executerank)
+AForm::AForm(std::string const name, int signrank, int executerank) : _name(name), _issigned(false), _signrank(signrank), _executerank(executerank)
 {
 	if (signrank < 1 || executerank < 1)
-		throw AForm::GradeTooHighException();
+		throw GradeTooHighException();
 	if (signrank > 150 || executerank > 150)
-		throw AForm::GradeTooLowException();
-	this->_name = name;
-	this->_issigned = false;
-	this->_signrank = signrank;
-	this->_executerank = executerank;
-	std::cout << "Constructor AForm: " << name << " unsigned with signrank : " << signrank << " and executerank : " << executerank << std::endl;
+		throw GradeTooLowException();
 }
 
-AForm::AForm(const AForm& other)
-{
-	std::cout << "Copy AForm: " << other._name << std::endl;
-	*this = other;
-}
+AForm::AForm(const AForm& other) : _name(other._name), _issigned(other._issigned), _signrank(other._signrank), _executerank(other._executerank) {}
 
 AForm& AForm::operator=(const AForm& other)
 {
-	std::cout << "Copy AForm assignment operator called" << std::endl;
 	if (this != &other)
-	{
-		this->_name = other.getName();
-		this->_issigned = other.getissigned();
-		this->_signrank = other.getsignrank();
-		this->_executerank = other.getexecuterank();
-	}
+		_issigned = other._issigned;
 	return *this;
 }
 
-AForm::~AForm()
-{
-	std::cout << "Destructor AForm: " << _name << std::endl;
-}
+AForm::~AForm() {}
 
 std::string AForm::getName() const
 {
-	return this->_name;
+	return _name;
 }
 
-bool	AForm::getissigned() const
+bool AForm::getissigned() const
 {
-	return this->_issigned;
+	return _issigned;
 }
 
-int	AForm::getsignrank() const
+int AForm::getsignrank() const
 {
-	return this->_signrank;
+	return _signrank;
 }
 
-int	AForm::getexecuterank() const
+int AForm::getexecuterank() const
 {
-	return this->_executerank;
+	return _executerank;
 }
 
-void AForm::beSigned(Bureaucrat const & b)
+void AForm::beSigned(Bureaucrat const &bureaucrat)
 {
-	if (this->_signrank < b.getGrade())
-		throw AForm::GradeTooLowException();
-	this->_issigned = true;
+	if (bureaucrat.getGrade() > _signrank)
+		throw GradeTooLowException();
+	_issigned = true;
 }
 
 const char* AForm::GradeTooHighException::what() const throw()
@@ -95,14 +73,14 @@ const char* AForm::GradeTooLowException::what() const throw()
 
 const char* AForm::FormNotSignedException::what() const throw()
 {
-	return "Form is not signed!";
+	return "Form not signed!";
 }
 
-std::ostream& operator<<(std::ostream& os, const AForm& f)
+std::ostream& operator<<(std::ostream& os, const AForm& b)
 {
-	if (f.getissigned())
-		os << f.getName() << ", form is signed, with signrank : " << f.getsignrank() << " and executerank : " << f.getexecuterank() << ".";
-	else
-		os << f.getName() << ", form is unsigned, with signrank : " << f.getsignrank() << " and executerank : " << f.getexecuterank() << ".";
+	os << b.getName() << ", form "
+		<< (b.getissigned() ? "is signed" : "is unsigned")
+		<< ", sign rank " << b.getsignrank()
+		<< ", execute rank " << b.getexecuterank() << ".";
 	return os;
 }

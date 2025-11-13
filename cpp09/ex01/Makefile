@@ -6,7 +6,7 @@
 #    By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/07 15:29:20 by nihamdan          #+#    #+#              #
-#    Updated: 2025/11/13 15:57:39 by nihamdan         ###   ########.fr        #
+#    Updated: 2025/11/09 20:52:25 by nihamdan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,13 @@ CUR		=	\033[3m
 UL		=	\033[4m
 UP		=	\033[A
 
-NAME 			= Bureaucrat
+NAME 			= RPN
 
 SOURCES			=	./sources
 INCLUDES		=	./includes
 OBJECTS			=	./bin
 
-SRCS 			=	main.cpp Bureaucrat.cpp AForm.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
+SRCS 			=	main.cpp RPN.cpp
 
 OBJS			=	$(addprefix ${OBJECTS}/, $(SRCS:.cpp=.o))
 
@@ -73,7 +73,7 @@ clean:
 
 fclean: clean
 	@echo "🗑  $(RED)Supression des executables et librairies.$(EOC) 🗑"
-	@rm -f ${NAME} default_shrubbery garden_shrubbery
+	@rm -f ${NAME}
 	@clear
 
 re: fclean all

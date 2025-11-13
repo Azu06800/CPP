@@ -15,53 +15,53 @@
 
 # include <iostream>
 # include <stdexcept>
-# include <string>
+# include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
 class AForm
 {
-private:
-    std::string  _name;
-    bool         _issigned;
-    int          _signrank;
-    int          _executerank;
+	protected:
+		std::string const	_name;
+		bool				_issigned;
+		int	const			_signrank;
+		int	const			_executerank;
 
-public:
-    AForm();
-    AForm(std::string const name, int signrank, int executerank);
-    AForm(const AForm& other);
-    AForm & operator=(const AForm& other);
-    virtual ~AForm();
+	public:
+		AForm();
+		AForm(std::string const name, int signrank, int executerank);
+		AForm(const AForm& other);
+		AForm& operator=(const AForm& other);
+		virtual ~AForm();
 
-    std::string getName() const;
-    bool        getissigned() const;
-    int         getsignrank() const;
-    int         getexecuterank() const;
+		std::string	getName() const;
+		bool		getissigned() const;
+		int			getsignrank() const;
+		int			getexecuterank() const;
 
-    void beSigned(Bureaucrat const& b);
+		void		beSigned(Bureaucrat const &bureaucrat);
 
-    virtual void execute(Bureaucrat const& executor) const = 0;
+		virtual void execute(Bureaucrat const & executor) const = 0;
 
-    class GradeTooHighException : public std::exception
-	{
-    public:
-        const char* what() const throw();
-    };
+		class GradeTooHighException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
 
-    class GradeTooLowException : public std::exception
-	{
-    public:
-        const char* what() const throw();
-    };
+		class GradeTooLowException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
 
-    class FormNotSignedException : public std::exception
-	{
-    public:
-        const char* what() const throw();
-    };
+		class FormNotSignedException : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
 };
 
-std::ostream& operator<<(std::ostream & os, AForm const& f);
+std::ostream& operator<<(std::ostream& os, const AForm& b);
 
 #endif

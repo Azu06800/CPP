@@ -10,94 +10,72 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 
-Form::Form() : _name("Default"), _issigned(false), _signrank(150), _executerank(150)
-{
-	std::cout << "Constructor Form: Default" << std::endl;
-}
+Form::Form() : _name("Default"), _issigned(false), _signrank(150), _executerank(150) {}
 
-Form::Form(std::string const name, int signrank, int executerank)
+Form::Form(std::string const name, int signrank, int executerank) : _name(name), _issigned(false), _signrank(signrank), _executerank(executerank)
 {
 	if (signrank < 1 || executerank < 1)
-		throw Form::GradeTooHighException();
+		throw GradeTooHighException();
 	if (signrank > 150 || executerank > 150)
-		throw Form::GradeTooLowException();
-	this->_name = name;
-	this->_issigned = false;
-	this->_signrank = signrank;
-	this->_executerank = executerank;
-	std::cout << "Constructor Form: " << name << " unsigned with signrank : " << signrank << " and executerank : " << executerank << std::endl;
+		throw GradeTooLowException();
 }
 
-Form::Form(const Form& other)
-{
-	std::cout << "Copy Form: " << other._name << std::endl;
-	*this = other;
-}
+Form::Form(const Form& other) : _name(other._name), _issigned(other._issigned), _signrank(other._signrank), _executerank(other._executerank) {}
 
 Form& Form::operator=(const Form& other)
 {
-	std::cout << "Copy Form assignment operator called" << std::endl;
 	if (this != &other)
-	{
-		this->_name = other.getName();
-		this->_issigned = other.getissigned();
-		this->_signrank = other.getsignrank();
-		this->_executerank = other.getexecuterank();
-	}
+		_issigned = other._issigned;
 	return *this;
-
 }
 
-Form::~Form()
-{
-	std::cout << "Destructor Form: " << _name << std::endl;
-}
+Form::~Form() {}
 
 std::string Form::getName() const
 {
-	return this->_name;
+	return _name;
 }
 
 bool Form::getissigned() const
 {
-	return this->_issigned;
+	return _issigned;
 }
 
-int	Form::getsignrank() const
+int Form::getsignrank() const
 {
-	return this->_signrank;
+	return _signrank;
 }
 
-int	Form::getexecuterank() const
+int Form::getexecuterank() const
 {
-	return this->_executerank;
+	return _executerank;
 }
 
 void Form::beSigned(Bureaucrat const &bureaucrat)
 {
-	if(this->_signrank < bureaucrat.getGrade())
-		throw Form::GradeTooLowException();
-	this->_issigned = true;
+	if (bureaucrat.getGrade() > _signrank)
+		throw GradeTooLowException();
+	_issigned = true;
 }
 
-const char* Form::GradeTooHighException::what() const throw() 
+const char* Form::GradeTooHighException::what() const throw()
 {
-    return "Grade too high!";
+	return "Grade too high!";
 }
 
-const char* Form::GradeTooLowException::what() const throw() 
+const char* Form::GradeTooLowException::what() const throw()
 {
-    return "Grade too low!";
+	return "Grade too low!";
 }
 
 std::ostream& operator<<(std::ostream& os, const Form& b)
 {
-	if (b.getissigned() == true)
-		os << b.getName() << ", form is signed, with signrank : " << b.getsignrank() << " and executerank : " << b.getexecuterank() << ".";
-	else
-		os << b.getName() << ", form is unsigned, with signrank : " << b.getsignrank() << " and executerank : " << b.getexecuterank() << ".";
-    return os;
+	os << b.getName() << ", form "
+	   << (b.getissigned() ? "is signed" : "is unsigned")
+	   << ", sign rank " << b.getsignrank()
+	   << ", execute rank " << b.getexecuterank() << ".";
+	return os;
 }

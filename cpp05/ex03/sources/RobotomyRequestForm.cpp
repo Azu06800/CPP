@@ -6,56 +6,35 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 14:05:43 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/10/09 23:46:46 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:52:03 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
 #include "RobotomyRequestForm.hpp"
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
 
-RobotomyRequestForm::RobotomyRequestForm(): AForm("RobotomyRequestForm", 72, 45), _target("default")
+RobotomyRequestForm::RobotomyRequestForm(std::string const target) : AForm("RobotomyRequestForm", 72, 45), _target(target) {}
+
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) : AForm(other), _target(other._target) {}
+
+RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
 {
-    std::cout << "Default constructor RobotomyRequestForm" << std::endl;
-    srand(time(0));
+	if (this != &other)
+		_target = other._target;
+	return *this;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target): AForm("RobotomyRequestForm", 72, 45), _target(target)
-{
-    std::cout << "Constructor RobotomyRequestForm: " << target << std::endl;
-    srand(time(0));
-}
+RobotomyRequestForm::~RobotomyRequestForm() {}
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other): AForm(other), _target(other._target)
+void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
-    std::cout << "Copy constructor RobotomyRequestForm" << std::endl;
-}
+	if (!getissigned())
+		throw FormNotSignedException();
+	if (executor.getGrade() > getexecuterank())
+		throw GradeTooLowException();
 
-RobotomyRequestForm & RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
-{
-    std::cout << "Copy assignment RobotomyRequestForm" << std::endl;
-    if (this != &other)
-        this->_target = other._target;
-    return *this;
-}
-
-RobotomyRequestForm::~RobotomyRequestForm()
-{
-    std::cout << "Destructor RobotomyRequestForm: " << _target << std::endl;
-}
-
-void RobotomyRequestForm::execute(Bureaucrat const& executor) const
-{
-    if (!getissigned())
-        throw AForm::FormNotSignedException();
-    if (executor.getGrade() > getexecuterank())
-        throw AForm::GradeTooLowException();
-
-    std::cout << "* drilling noises *" << std::endl;
-    if (rand() % 2)
-        std::cout << _target << " has been robotomized successfully!" << std::endl;
-    else
-        std::cout << "Robotomy failed on " << _target << "." << std::endl;
+	std::cout << "* Drilling noises *" << std::endl;
+	if (std::rand() % 2)
+		std::cout << _target << " has been robotomized successfully!" << std::endl;
+	else
+		std::cout << "Robotomy failed on " << _target << std::endl;
 }
