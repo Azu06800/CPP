@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/19 16:11:00 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/11/13 23:18:22 by nihamdan         ###   ########.fr       */
+/*   Created: 2025/11/14 03:05:16 by nihamdan          #+#    #+#             */
+/*   Updated: 2025/11/14 03:49:07 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EASYFIND_HPP
-# define EASYFIND_HPP
+#include "PmergeMe.hpp"
+#include <iostream>
 
-# include <algorithm>
-# include <stdexcept>
-
-template <typename T>
-typename T::iterator easyfind(T& container, int value)
+int main(int argc, char **argv)
 {
-	typename T::iterator it = std::find(container.begin(), container.end(), value);
-	if (it == container.end())
-		throw std::runtime_error("Valeur non trouvée");
-	return it;
+	if (argc < 2)
+	{
+		std::cerr << "Usage: ./PmergeMe <list of positive integers>" << std::endl;
+		return 1;
+	}
+
+	try
+	{
+		PmergeMe sorter;
+		sorter.sortAndMeasure(argv);
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+		return 1;
+	}
+
+	return 0;
 }
 
-#endif

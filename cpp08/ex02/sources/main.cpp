@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/02 20:04:26 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/11/02 20:04:57 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/14 00:05:13 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,56 +16,56 @@
 
 int main()
 {
-    MutantStack<int> mstack;
+	MutantStack<int> mstack;
 
-    mstack.push(5);
-    mstack.push(17);
+	mstack.push(5);
+	mstack.push(17);
 
-    std::cout << mstack.top() << std::endl; // 17
-    mstack.pop();
-    std::cout << mstack.size() << std::endl; // 1
+	std::cout << mstack.top() << std::endl; // 17
+	mstack.pop();
+	std::cout << mstack.size() << std::endl; // 1
 
-    mstack.push(3);
-    mstack.push(5);
-    mstack.push(737);
-    mstack.push(0);
+	mstack.push(3);
+	mstack.push(5);
+	mstack.push(737);
+	mstack.push(0);
 
-    MutantStack<int>::iterator it = mstack.begin();
-    MutantStack<int>::iterator ite = mstack.end();
+	MutantStack<int>::iterator it = mstack.begin();
+	MutantStack<int>::iterator ite = mstack.end();
 
-    ++it;
-    --it;
+	++it;
+	--it;
 
-    while (it != ite)
+	while (it != ite)
 	{
-        std::cout << *it << std::endl;
-        ++it;
-    }
+		std::cout << *it << std::endl;
+		++it;
+	}
 
-    std::stack<int> s(mstack);
+	std::stack<int> s(mstack);
 
-    std::cout << "\n=== Test avec std::list ===" << std::endl;
+	std::cout << "\nTest avec std::list :" << std::endl;
 
-    std::list<int> lst;
-    lst.push_back(5);
-    lst.push_back(17);
-    std::cout << lst.back() << std::endl; // équivalent de top()
-    lst.pop_back();
-    std::cout << lst.size() << std::endl;
+	std::list<int> lst;
+	lst.push_back(5);
+	lst.push_back(17);
+	std::cout << lst.back() << std::endl;
+	lst.pop_back();
+	std::cout << lst.size() << std::endl;
 
-    lst.push_back(3);
-    lst.push_back(5);
-    lst.push_back(737);
-    lst.push_back(0);
+	lst.push_back(3);
+	lst.push_back(5);
+	lst.push_back(737);
+	lst.push_back(0);
 
-    std::list<int>::iterator lit = lst.begin();
-    std::list<int>::iterator lite = lst.end();
+	std::list<int>::iterator lit = lst.begin();
+	std::list<int>::iterator lite = lst.end();
 
-    while (lit != lite)
+	while (lit != lite)
 	{
-        std::cout << *lit << std::endl;
-        ++lit;
-    }
+		std::cout << *lit << std::endl;
+		++lit;
+	}
 
-    return 0;
+	return 0;
 }

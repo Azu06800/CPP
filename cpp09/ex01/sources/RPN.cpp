@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/09 20:48:22 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/11/09 20:50:31 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/14 01:33:39 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 RPN::RPN() {}
 
-RPN::RPN(const RPN& other) { *this = other; }
+RPN::RPN(const RPN& other)
+{
+	*this = other;
+}
 
 RPN& RPN::operator=(const RPN& other)
 {
@@ -59,12 +62,15 @@ int RPN::evaluate(const std::string& expression)
 		{
 			if (_stack.size() < 2)
 				throw std::runtime_error("Error: invalid expression");
-			int b = _stack.top(); _stack.pop();
-			int a = _stack.top(); _stack.pop();
+
+			int b = _stack.top();
+			_stack.pop();
+			int a = _stack.top();
+			_stack.pop();
 			_stack.push(applyOperator(a, b, token[0]));
 		}
 		else
-			throw std::runtime_error("Error: bad token => " + token);
+			throw std::runtime_error("Error");
 	}
 
 	if (_stack.size() != 1)

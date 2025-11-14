@@ -6,14 +6,14 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 22:52:09 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/10/16 22:52:11 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/13 21:40:13 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FUNCTIONS_HPP
-#define FUNCTIONS_HPP
+# define FUNCTIONS_HPP
 
-#include "Base.hpp"
+# include "Base.hpp"
 
 Base* generate(void);
 void identify(Base* p);

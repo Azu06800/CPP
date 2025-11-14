@@ -6,7 +6,7 @@
 /*   By: nihamdan <nihamdan@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 19:45:39 by nihamdan          #+#    #+#             */
-/*   Updated: 2025/10/15 19:49:16 by nihamdan         ###   ########.fr       */
+/*   Updated: 2025/11/13 21:29:51 by nihamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,25 @@
 
 int main()
 {
-    Data d;
-    d.id = 42;
-    d.name = "Piece_001";
+	Data d;
+	d.id = 42;
+	d.name = "Nizar";
 
-    std::cout << "Original Data:" << std::endl;
-    std::cout << "  id = " << d.id << ", name = " << d.name << std::endl;
+	std::cout << "Original Data:" << std::endl;
+	std::cout << "  id = " << d.id << ", name = " << d.name << std::endl;
 
-    uintptr_t raw = Serializer::serialize(&d);
+	uintptr_t raw = Serializer::serialize(&d);
 
-    Data* ptr = Serializer::deserialize(raw);
+    std::cout << "\nRaw = " << raw << std::endl;
 
-    std::cout << "\nAfter serialization/deserialization:" << std::endl;
-    std::cout << "  id = " << ptr->id << ", name = " << ptr->name << std::endl;
+	Data* ptr = Serializer::deserialize(raw);
 
-    std::cout << "\nAdresse originale : " << &d << std::endl;
-    std::cout << "Adresse après opération : " << ptr << std::endl;
+	std::cout << "\nAfter serialization/deserialization:" << std::endl;
+	std::cout << "  id = " << ptr->id << ", name = " << ptr->name << std::endl;
 
-    if (ptr == &d)
-        std::cout << "Les pointeurs correspondent !" << std::endl;
-    else
-        std::cout << "Erreur : pointeurs différents !" << std::endl;
+	std::cout << "\nAdresse originale : " << &d << std::endl;
+	std::cout << "Adresse après opération : " << ptr << std::endl;
 
-    return 0;
+	return 0;
 }
+
